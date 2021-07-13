@@ -1,11 +1,10 @@
 from django.http import Http404
-
 from django.shortcuts import render
-from  .models import ssl_data
+from  .models import database_conflicts, ssl_data
 
 
 def index (request):
-    result = ssl_data()
+    result = database_conflicts()
 
     context = {
 

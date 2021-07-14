@@ -6,7 +6,7 @@ import redis
 import config
 
 
-def query_execute(query):
+def psql_connect(query):
     conn = None
     try:
         params = config.config(section="postgresql")
@@ -25,12 +25,12 @@ def query_execute(query):
             print('Database connection closed.')
             
 def ssl_data():
-    response = query_execute('SELECT * FROM pg_stat_activity')
+    response = psql_connect('SELECT * FROM pg_stat_activity')
     print("%s", str(response))
     return response
 
 def database_conflicts() :
-    response = query_execute('SELECT * FROM pg_stat_database_conflicts')
+    response = psql_connect('SELECT * FROM pg_stat_database_conflicts')
     print("%s", str(response))
     return response
 

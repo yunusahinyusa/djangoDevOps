@@ -1,1 +1,24 @@
-{{ client_cassandra }}
+{% extends 'base.html' %}
+{% block page_content %}
+<h1>
+<th scope="col">Performance Datas</th> 
+</h1>
+<table class="table table-striped">
+<h3>Information for the cluster</h3>
+        {% for v in client_cassandra %}
+        <tr> 
+        <td>  {{ v }} </td>  
+        </tr> 
+        {% endfor %}
+</table>
+<table class="table table-striped">
+<h3>Usage statistics</h3>
+        {% for result in client_info %}
+        <tr> 
+        <td>  {{ result }} </td>  
+        </tr> 
+        {% endfor %}
+</table>
+
+
+{% endblock %}

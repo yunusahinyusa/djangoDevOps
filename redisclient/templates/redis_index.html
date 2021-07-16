@@ -4,18 +4,53 @@
 <th scope="col">Performance Datas</th> 
 </h1>
 <table class="table table-striped">
-<h3>Information for the redis</h3>
-        {% for v in client_redis %}
-        <tr> 
-        <td>  {{ v }} </td>  
-        </tr> 
-        {% endfor %}
-</table>
-<h3>Information for the redis</h3>
-        {% for n in client_memory %}
-        <tr> 
-        <td>  {{ n }} </td>  
-        </tr> 
-        {% endfor %}
-</table>
+    <h3>Command Statistics</h3>
+            {% for v in client_commands %}
+            <tr> 
+            <td>  {{ v }} </td>  
+            </tr> 
+            {% endfor %}
+    </table>
+    <table class="table table-striped">
+        <h3>Memory Usage</h3>
+                {% for v in client_memory %}
+                <tr> 
+                <td>  {{ v }} </td>  
+                </tr> 
+                {% endfor %}
+        </table>
+<table class="table table-striped">
+            <h3>Cache Hit Ratio</h3>
+                        {% for s in client_stats %}
+                        <tr> 
+                        <td>  {{ s }} </td>  
+                        </tr> 
+                        {% endfor %}
+                </table>
+        <table class="table table-striped">
+<table class="table table-striped">
+    <h3>Client List</h3>
+                {% for i in client_output %}
+                <tr> 
+                <td>  {{ i }} </td>  
+                </tr> 
+                {% endfor %}
+        </table>
+<table class="table table-striped">
+    <h3>Client Info</h3>
+                        {% for j in client_info %}
+                        <tr> 
+                        <td>  {{ j }} </td>  
+                        </tr> 
+                        {% endfor %}
+        </table>
+<table class="table table-striped">
+            <h3>Master/replica replication information</h3>
+                                {% for x in client_replication %}
+                                <tr> 
+                                <td>  {{ x }} </td>  
+                                </tr> 
+                                {% endfor %}
+                </table>
+
 {% endblock %}

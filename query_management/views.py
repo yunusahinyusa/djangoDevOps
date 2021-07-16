@@ -1,14 +1,29 @@
+from django.db import connection
 from django.http import Http404
 from django.shortcuts import render
-from  .models import database_conflicts, ssl_data
+from  .models import active_user, connection_number, database_conflicts, disk_usage, seq_tup_read, ssl_data, stat_replication, sum_deadlocks, temp_bytes
 
 
 def index (request):
     result = database_conflicts()
+    replication = stat_replication()
+    connectionum = connection_number()
+    deadlock = sum_deadlocks()
+    liverows = seq_tup_read()
+    tempbytes = temp_bytes()  
+    diskusage = disk_usage()
+    activeuser = active_user()
 
     context = {
 
-    "result" : result
+    "result" : result,
+    "replication" : replication,
+    "connection" : connection,
+    "deadlock" : deadlock,
+    "liverows" : liverows,
+    "tempbytes" : tempbytes,
+    "diskusage" : diskusage,
+    "activeuser" : activeuser
 
     }
 

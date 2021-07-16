@@ -19,6 +19,15 @@
         </tr> 
         {% endfor %}
 </table>
+<table class="table table-striped">
+        <h3>Usage table</h3>
+                {% for rise in client_tpstat %}
+                <tr> 
+                <td>  {{ rise}} </td>  
+                </tr> 
+                {% endfor %}
+</table>
+
 
 
 {% endblock %}

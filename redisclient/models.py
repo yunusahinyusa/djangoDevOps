@@ -19,6 +19,9 @@ def redis_connect(result) :
         pprint.pprint(data)
         print (type(data))
         return data
+
+
+        
     except Exception as e:
         print("something went wrong ")
         print(e)
@@ -27,4 +30,10 @@ def redis_connect(result) :
 def get_all_infos():
     result = redis_connect('info')
     print("%s", str(result))
+    return result
+
+#This command returns an Array reply about the memory usage of the server.
+def get_memory_stats():
+    result = redis_connect('memory stats')
+    print('%s' , str(result))
     return result

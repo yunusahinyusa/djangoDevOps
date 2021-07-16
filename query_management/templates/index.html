@@ -1,12 +1,66 @@
-{%  if result  %}
+{% extends 'base.html' %}
+{% block page_content %}
+<h1>
+<th scope="col">Performance Datas</th> 
+</h1>
+<table class="table table-striped">
+<h3>Information for the cluster</h3>
+        {% for v in result %}
+        <tr> 
+        <td>  {{ v }} </td>  
+        </tr> 
+        {% endfor %}
+</table>
+<table class="table table-striped">
+    <h3>Stat Replication</h3>
+            {% for x in replication %}
+            <tr> 
+            <td>  {{ x }} </td>  
+            </tr> 
+            {% endfor %}
+    </table>
+        <h3>connection per database</h3>
+                {{ connection }}
+<table class="table table-striped">
+        <h3>Deadlock</h3>
+        {% for k in deadlock %}
+                <tr> 
+                <td>  {{ k }} </td>  
+                </tr> 
+                {% endfor %}
+</table>
+<table class="table table-striped">
+    <h3>Temp Bytes</h3>
+    {% for q in tempbytes %}
+            <tr> 
+            <td>  {{ q }} </td>  
+            </tr> 
+            {% endfor %}
+</table>
+<table class="table table-striped">
+    <h3>Disk Usage</h3>
+    {% for i in diskusage %}
+            <tr> 
+            <td>  {{ i }} </td>  
+            </tr> 
+            {% endfor %}
+</table>
+<table class="table table-striped">
+    <h3>Active User</h3>
+    {% for n in activeuser %}
+            <tr> 
+            <td>  {{ n }} </td>  
+            </tr> 
+            {% endfor %}
+</table>
+<table class="table table-striped">
+    <h3>Live Rows</h3>
+    {% for p in liverows %}
+            <tr> 
+            <td>  {{ p }} </td>  
+            </tr> 
+            {% endfor %}
+</table>
 
-<ul>
-    {%  for query in result %}
-    <li> <a href="/query_management/ query }}/">{{ query }}</a></li>
-    {% endfor %}
-</ul>
 
-{% else %}
-<h3>You haven't data</h3>
-
-{%  endif %}
+{% endblock %}

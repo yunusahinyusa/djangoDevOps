@@ -1,1 +1,21 @@
-{{ client_redis }}
+{% extends 'base.html' %}
+{% block page_content %}
+<h1>
+<th scope="col">Performance Datas</th> 
+</h1>
+<table class="table table-striped">
+<h3>Information for the redis</h3>
+        {% for v in client_redis %}
+        <tr> 
+        <td>  {{ v }} </td>  
+        </tr> 
+        {% endfor %}
+</table>
+<h3>Information for the redis</h3>
+        {% for n in client_memory %}
+        <tr> 
+        <td>  {{ n }} </td>  
+        </tr> 
+        {% endfor %}
+</table>
+{% endblock %}

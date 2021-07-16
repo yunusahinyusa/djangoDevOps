@@ -7,10 +7,12 @@ def cassandra_index (request):
     client_cassandra = connect_gospinfo()
     client_ping =  connect_ring()
     client_info = connect_info()
+    client_tpstat = connect_tpstats()
     context = {
     "client_info" : client_info,
     "client_ping" : client_ping,
-    "client_cassandra" : client_cassandra
+    "client_cassandra" : client_cassandra,
+    "client_tpstat" : client_tpstat
 
     }
 

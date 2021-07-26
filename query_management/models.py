@@ -1,4 +1,5 @@
 from django import db
+from django.http import response
 import psycopg2
 import pprint
 from django.db import connection
@@ -191,7 +192,7 @@ def buffer_hits() :
 def buffer_total_hits() :
     response = psql_connect('SELECT sum(heap_blks_hit) FROM pg_statio_all_tables')
     print("%s", str(response))
-    return response
+    return response 
 
 #Number of disk blocks read from all indexes in the table
 def table_read_disk_total() :
@@ -221,7 +222,7 @@ def toast_bloks_hit() :
 def toast_read_blocks () :
     response = psql_connect('SELECT sum(tidx_blks_read) FROM pg_statio_all_tables')
     print("%s", str(response))
-    return response
+    return response 
 
 #Total number of buffer hits in TOAST table indexes
 def toast_tids_blocks() :
@@ -253,7 +254,8 @@ def self_time_statUser() :
 #DATADOG VIEWS
 #Replication Delay
 def stat_replication() :
-    response = psql_connect('SELECT * FROM pg_stat_replication')
+    response = psql_connect('SELECT EXTRACT(EPOCH FROM (now() - pg_last_xact_replay_timestamp()))::INT')
+    #response = psql_connect('SELECT * FROM pg_stat_replication')
     print("%s", str(response))
     return response
 
@@ -282,6 +284,20 @@ def seq_tup_read() :
     print("%s", str(response))
     return response
 
+def tables_disk_usage():
+    response = psql_connect("SELECT nspname || '.' || relname AS relation, pg_size_pretty(pg_total_relation_size(C.oid)) AS total_size FROM pg_class C LEFT JOIN pg_namespace N ON (N.oid = C.relnamespace) WHERE nspname NOT IN ('pg_catalog', 'information_schema') AND C.relkind <> 'i' AND nspname !~ '^pg_toast' ORDER BY pg_total_relation_size(C.oid) DESC LIMIT 5")
+    print("%s", str(response))
+    return response
+
+def tables_rows():
+    response = psql_connect("SELECT schemaname,relname,n_live_tup FROM pg_stat_user_tables ORDER BY n_live_tup DESC LIMIT 5")
+    print("%s",str(response))
+    return response
+
+def dead_tuples():
+    response = psql_connect('SELECT relname, n_dead_tup FROM pg_stat_user_tables LIMIT 5')
+    print("%s",str(response))
+    return response
 
 
 

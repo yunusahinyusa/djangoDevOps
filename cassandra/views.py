@@ -4,7 +4,7 @@ from django.http import Http404
 
 
 def cassandra_index (request):
-    client_cassandra = connect_gospinfo()
+    client_cassandra = connect_status()
     client_ping =  connect_ring()
     client_info = connect_info()
     client_tpstat = connect_tpstats()
@@ -19,3 +19,5 @@ def cassandra_index (request):
     #import pdb; pdb.set_trace()
     return  render(request,"cassandra_index.html",context)
     #return  render(request,'index.html',{ 'result' :result})
+
+

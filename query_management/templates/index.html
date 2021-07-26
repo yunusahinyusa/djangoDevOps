@@ -1,89 +1,158 @@
 {% extends 'base.html' %}
 {% block page_content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'static/style.css' %}">
 <h1>
 <th scope="col">Performance Datas</th> 
 </h1>
+
 <table class="table table-striped">
+<thead>
+<tr>
+<th>ID</th>
+<th>Database Name</th>
+<th>Table Space</th>
+<th>Lock</th>
+<th>Snapshot</th>
+<th>Buffer</th>
+<th>Deadlock</th>
+</tr>
+</thead>
 <h3>Information for the cluster</h3>
-        {% for v in result %}
-        <tr> 
-        <td>  {{ v }} </td>  
+{% for v in result %}
+<tr> 
+<td>  {{ v.datid }} </td> 
+<td>  {{ v.datname }} </td>  
+<td>  {{ v.confl_space}}  </td> 
+<td>  {{v.conf_lock}} </td>
+<td>  {{v.conf_snapshot}} </td>
+<td>  {{v.conf_buffer}} </td>
+<td>  {{v.conf_deadlock}} </td>
+</tr> 
+{% endfor %}
+</table>
+
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Database</th>
+<th>Usage</th>
+</tr>
+</thead>
+<h3>Tables with most disk usage (top 5)</h3>
+{% for s in tablesusage %}
+<tr> 
+<td>  {{ s.table_name }} </td> 
+<td>  {{ s.disk_usage }} </td>   
+</tr> 
+{% endfor %}
+</table>
+
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Relname</th>
+<th>Total</th>
+</tr>
+</thead>
+<h3>Dead Tuples</h3>
+{% for s in deadtuples %}
+<tr> 
+<td>  {{ s.relaname }} </td> 
+<td>  {{ s.total }} </td>   
+</tr> 
+{% endfor %}
+</table>
+
+<table class="table table-striped">
+<h3>Connection Number</h3>
+{% for s in connectionnum %}
+<tr>
+<td>  {{ s.connumber }} Connection </td>  
+</tr> 
+{% endfor %}
+</table>
+
+<table class="table table-striped">
+<h3>Replication delay/lag</h3>
+{% for x in replication %}
+<tr>
+<td>  {{ x.stat_replication }} </td>  
+</tr> 
+{% endfor %}
+</table>
+
+<table class="table table-striped">
+<h3>Total Deadlock</h3>
+{% for k in deadlock %}
+<tr>
+<td>  {{ k.sum_deadlock }} Deadlock</td>  
+</tr> 
+{% endfor %}
+</table>
+
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Schema Name</th>
+<th>Table Name</th>
+</tr>
+</thead>
+<h3>Tables with most live rows</h3>
+{% for k in tablesrows %}
+<tr> 
+<td>  {{ k.schema_name }} </td>  
+<td>  {{ k.relname_table }}</td> 
+</tr> 
+{% endfor %}
+</table>
+
+<table class="table table-striped">
+<h3>Disk Usage</h3>
+{% for i in diskusage %}
+<tr> 
+<td>  {{ i.usage_disk }} </td>  
+</tr> 
+{% endfor %}
+</table>
+
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Database Name</th>
+<th>Username</th>
+<th>count</th>
+</tr>
+</thead>
+<h3>Active User</h3>
+{% for n in activeuser %}
+<tr> 
+<td>  {{ n.base_name }} </td>  
+<td>  {{ n.us_name }} </td>  
+<td>  {{n.count}}      </td>
+</tr> 
+{% endfor %}
+</table>
+
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Lock Type</th>
+<th>Database</th>
+<th>Relation</th>
+<th>Mode</th>
+<th>Process ID</th>
+</tr>
+</thead>
+<h3>Logs</h3>
+{% for n in usagelogs %}
+<tr> 
+        <td>  {{ n.lock_type}} </td> 
+        <td>  {{ n.database_result }} </td>  
+        <td>  {{ n.relation_name }} </td>  
+        <td>  {{n.mode_name}}      </td>
+        <td>  {{n.pid}}      </td>
         </tr> 
-        {% endfor %}
+{% endfor %}
 </table>
-<table class="table table-striped">
-        <h3>Tables with most disk usage (top 5)</h3>
-                {% for s in tablesusage %}
-                <tr> 
-                <td>  {{ s }} </td>  
-                </tr> 
-                {% endfor %}
-        </table>
-<table class="table table-striped">
-        <table class="table table-striped">
-                <h3>Dead Tuples</h3>
-                        {% for s in deadtuples %}
-                        <tr> 
-                        <td>  {{ s }} </td>  
-                        </tr> 
-                        {% endfor %}
-                </table>
-        <table class="table table-striped">
-        <h3>Connection Number</h3>
-                {% for s in connectionnum %}
-                <tr> 
-                <td>  {{ s }} </td>  
-                </tr> 
-                {% endfor %}
-        </table>
-<table class="table table-striped">
-    <h3>Replication delay/lag</h3>
-            {% for x in replication %}
-            <tr> 
-            <td>  {{ x }} </td>  
-            </tr> 
-            {% endfor %}
-    </table>
-<table class="table table-striped">
-        <h3>Total Deadlock</h3>
-        {% for k in deadlock %}
-                <tr> 
-                <td>  {{ k }} </td>  
-                </tr> 
-                {% endfor %}
-</table>
-<table class="table table-striped">
-        <h3>Tables with most live rows</h3>
-        {% for k in tablesrows %}
-                <tr> 
-                <td>  {{ k }} </td>  
-                </tr> 
-                {% endfor %}
-</table>
-<table class="table table-striped">
-    <h3>Disk Usage</h3>
-    {% for i in diskusage %}
-            <tr> 
-            <td>  {{ i }} </td>  
-            </tr> 
-            {% endfor %}
-</table>
-<table class="table table-striped">
-    <h3>Active User</h3>
-    {% for n in activeuser %}
-            <tr> 
-            <td>  {{ n }} </td>  
-            </tr> 
-            {% endfor %}
-</table>
-<table class="table table-striped">
-        <h3>Logs</h3>
-        {% for n in usagelogs %}
-                <tr> 
-                <td>  {{ n }} </td>  
-                </tr> 
-                {% endfor %}
-    </table>
-
-
 {% endblock %}

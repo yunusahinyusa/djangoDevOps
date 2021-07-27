@@ -16,11 +16,11 @@ def redis_connect(result) :
         #ADD THE CONFIG FILE PARAMETER
         r = redis.StrictRedis(**redis_pool)
         data = r.execute_command(result)
+        result = []
         if type(data) == bytes :
             m = data.decode('UTF-8')
-            m = data.splitlines()
-            print(type(m))
-            return m
+            for line in m.split('b\n'):
+                return line
         elif type(data) == List :
             print("Query Answer:") 
             pprint.pprint(data)
@@ -38,6 +38,7 @@ def redis_connect(result) :
 def get_all_infos():
     result = redis_connect('info')
     print("%s", str(result))
+    result = result[result.find("'")+1:result.find("'")]
     return result
 
 #This command returns an Array reply about the memory usage of the server.
@@ -74,6 +75,9 @@ def get_info_commandstats():
 def get_info_clients():
     result = redis_connect('info clients')
     print("%s" ,  str(result))
+    #result = [x.encode('utf-8') for x in result]
+    #str1 = ''.join(str(e) for e in result)
+    #query = [i.split() for i in result]
     return result
 
 #General statistics

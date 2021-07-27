@@ -7,7 +7,7 @@
 <h3>Node Status</h3>
         {% for v in client_cassandra %}
         <tr> 
-        <td>  {{ v }} </td>  
+        <td>  {{ v.address }} </td>  
         </tr> 
         {% endfor %}
 </table>
@@ -20,14 +20,48 @@
         {% endfor %}
 </table>
 <table class="table table-striped">
+<thead>
+<tr>
+<th>Pool Name</th>
+<th>Active</th>
+<th>Pending</th>
+<th>Completed</th>
+<th>Blocked</th>
+<th>All time blocked</th>
+</tr>
+</thead>
         <h3>Usage table</h3>
                 {% for rise in client_tpstat %}
                 <tr> 
-                <td>  {{ rise}} </td>  
+                <td>  {{ rise.pool }} </td>
+                <td>  {{ rise.active }} </td>
+                <td>  {{ rise.pending }} </td>
+                <td>  {{ rise.completed }} </td>
+                <td>  {{ rise.blocked }} </td>
+                <td>  {{ rise.all_blocked }} </td>
                 </tr> 
                 {% endfor %}
 </table>
-
-
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Snapshot Name</th>
+<th>Keyspace Name</th>
+<th>Column Family Name</th>
+<th>True Size</th>
+<th>Size on Disk</th>
+</tr>
+</thead>
+        <h3>Snapshots</h3>
+                {% for x in client_listsnapshot %}
+                <tr> 
+                <td>  {{ x.snapshot_name }} </td>  
+                <td>  {{ x.keyspace_name }} </td>  
+                <td>  {{ x.column_name }} </td>  
+                <td>  {{ x.true_size }} </td>  
+                <td>  {{ x.size_disk}} </td>  
+                </tr> 
+                {% endfor %}
+</table>
 
 {% endblock %}

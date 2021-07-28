@@ -2,23 +2,88 @@
 {% block page_content %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'static/style.css' %}">
-<div class = "forimage">
-<img src="https://static.datadoghq.com/static/images/logos/postgres_avatar.svg" width="70" height="70" >
-<h2>
-        <th scope="col">Postgres-Overview</th>
-</h2>
+<div class="forimage">
+        <p>
+                <a href="https://www.postgresql.org/"></a>
+                <img src="https://static.datadoghq.com/static/images/logos/postgres_avatar.svg" width="70" height="70">
+                <h1>
+                        <th scope="col">Postgres-Overview</th>
+                </h1>
+                </a>
+        </p>
+        <table class="table table-striped">
+                {% for i in diskusage %}
+                <tr>
+                        <td class="colorset">Disk Usage: {{ i.usage_disk }} </td>
+                </tr>
+                {% endfor %}
+                {% for s in connectionnum %}
+                <tr>
+                        <td class="colorget"> Connection Number: {{ s.connumber }}</td>
+                </tr>
+                {% endfor %}
+        </table>
 </div>
 <br>
+<h2 class="headertekst">
+        Resource Utilization</h2>
+<table class="table table-striped">
+        <thead>
+                <tr>
+                        <th>Database</th>
+                        <th>Usage</th>
+                </tr>
+        </thead>
+        <h3>Tables with most disk usage (top 5)</h3>
+        {% for s in tablesusage %}
+        <tr>
+                <td> {{ s.table_name }} </td>
+                <td> {{ s.disk_usage }} </td>
+        </tr>
+        {% endfor %}
+</table>
 <br>
+<table class="table table-striped">
+        <thead>
+                <tr>
+                        <th>Schema Name</th>
+                        <th>Table Name</th>
+                </tr>
+        </thead>
+        <h3>Tables with most live rows</h3>
+        {% for k in tablesrows %}
+        <tr>
+                <td> {{ k.schema_name }} </td>
+                <td> {{ k.relname_table }}</td>
+        </tr>
+        {% endfor %}
+</table>
+<h2 class="headertcontent">
+        Locks</h2>
+<table class="table table-striped">
+        <thead>
+                <tr>
+                        <th>Lock Type</th>
+                        <th>Database</th>
+                        <th>Relation</th>
+                        <th>Mode</th>
+                        <th>Process ID</th>
+                </tr>
+        </thead>
+        <h3>Logs</h3>
+        {% for n in usagelogs %}
+        <tr>
+                <td> {{ n.lock_type}} </td>
+                <td> {{ n.database_result }} </td>
+                <td> {{ n.relation_name }} </td>
+                <td> {{n.mode_name}} </td>
+                <td> {{n.pid}} </td>
+        </tr>
+        {% endfor %}
+</table>
 <br>
-<div class="group-header__title">
-        <div
-                class="druids_layout_flex druids_layout_flex--direction-column druids_layout_flex--align-items-center druids_layout_flex--justify-flex-start druids_layout_flex--wrap-nowrap druids_margin--left-md druids_margin--right-md">
-                <h2
-                        class="druids_typography_text druids_typography_text--xl druids_typography_text--default druids_typography_text--bold druids_typography_text--left druids_typography_title group-header__title__text">
-                        Resource Utilization</h2>
-        </div>
-</div>
+<h2 class="headertcontext">
+        Cluster</h2>
 <table class="table table-striped">
         <thead>
                 <tr>
@@ -44,22 +109,9 @@
         </tr>
         {% endfor %}
 </table>
-
-<table class="table table-striped">
-        <thead>
-                <tr>
-                        <th>Database</th>
-                        <th>Usage</th>
-                </tr>
-        </thead>
-        <h3>Tables with most disk usage (top 5)</h3>
-        {% for s in tablesusage %}
-        <tr>
-                <td> {{ s.table_name }} </td>
-                <td> {{ s.disk_usage }} </td>
-        </tr>
-        {% endfor %}
-</table>
+<br>
+<h2 class="headeresult">
+        Tuples</h2>
 <table class="table table-striped">
         <thead>
                 <tr>
@@ -75,16 +127,33 @@
         </tr>
         {% endfor %}
 </table>
-
+<h2 class="headeruser">
+        Users</h2>
+        <table class="table table-striped">
+                <thead>
+                        <tr>
+                                <th>Database Name</th>
+                                <th>Username</th>
+                                <th>count</th>
+                        </tr>
+                </thead>
+                <h3>Active User</h3>
+                {% for n in activeuser %}
+                <tr>
+                        <td> {{ n.base_name }} </td>
+                        <td> {{ n.us_name }} </td>
+                        <td> {{n.count}} </td>
+                </tr>
+                {% endfor %}
+        </table>
 <table class="table table-striped">
-        <h3>Connection Number</h3>
-        {% for s in connectionnum %}
-        <tr>
-                <td> {{ s.connumber }} Connection </td>
-        </tr>
-        {% endfor %}
+        <h3>Top Function Calls</h3>
+                {% for k in callsfunction %}
+                <tr>
+                        <td> {{ callsfunction }} </td>
+                </tr>
+                {% endfor %}
 </table>
-
 <table class="table table-striped">
         <h3>Replication delay/lag</h3>
         {% for x in replication %}
@@ -101,70 +170,5 @@
                 <td> {{ k.sum_deadlock }} Deadlock</td>
         </tr>
         {% endfor %}
-</table>
-
-<table class="table table-striped">
-        <thead>
-                <tr>
-                        <th>Schema Name</th>
-                        <th>Table Name</th>
-                </tr>
-        </thead>
-        <h3>Tables with most live rows</h3>
-        {% for k in tablesrows %}
-        <tr>
-                <td> {{ k.schema_name }} </td>
-                <td> {{ k.relname_table }}</td>
-        </tr>
-        {% endfor %}
-</table>
-
-<table class="table table-striped">
-        <h3>Disk Usage</h3>
-        {% for i in diskusage %}
-        <tr>
-                <td> {{ i.usage_disk }} </td>
-        </tr>
-        {% endfor %}
-</table>
-
-<table class="table table-striped">
-        <thead>
-                <tr>
-                        <th>Database Name</th>
-                        <th>Username</th>
-                        <th>count</th>
-                </tr>
-        </thead>
-        <h3>Active User</h3>
-        {% for n in activeuser %}
-        <tr>
-                <td> {{ n.base_name }} </td>
-                <td> {{ n.us_name }} </td>
-                <td> {{n.count}} </td>
-        </tr>
-        {% endfor %}
-</table>
-
-<table class="table table-striped">
-        <thead>
-                <tr>
-                        <th>Lock Type</th>
-                        <th>Database</th>
-                        <th>Relation</th>
-                        <th>Mode</th>
-                        <th>Process ID</th>
-                </tr>
-        </thead>
-        <h3>Logs</h3>
-        {% for n in usagelogs %}
-        <tr>
-                <td> {{ n.lock_type}} </td>
-                <td> {{ n.database_result }} </td>
-                <td> {{ n.relation_name }} </td>
-                <td> {{n.mode_name}} </td>
-                <td> {{n.pid}} </td>
-        </tr>
-        {% endfor %}
-</table>
-{% endblock %}
+        </table>
+        {% endblock %}

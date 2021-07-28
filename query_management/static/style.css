@@ -2,6 +2,37 @@
 h3 {
     color: blue;
 }
+h2.headertekst {
+    text-align: center;
+    background-color: blue;
+    color: white;
+  }
+td.colorset{
+    color:green;
+}
+td.colorget{
+    color: purple;
+}
+h2.headertcontent {
+    text-align: center;
+    background-color: orange;
+    color: black
+}
+h2.headertcontext{
+    text-align:  center;
+    background-color: #4bd69f;
+    color: white
+}
+h2.headeresult{
+    text-align: center;
+    background-color: #734ddb;
+    color:white
+}
+h2.headeruser{
+    text-align: center;
+    background-color: red;
+    color: white;
+}
 .forimage {
     width: 900px;
     margin:left;
@@ -9,193 +40,4 @@ h3 {
 .forimage img {
     float:left;
     padding:0 10px 10px 0;
-}
-.group-header__handle.bg-vivid_blue {
-    --note-placeholderColor: var(--ui-text-knockout);
-    --note-backgroundColor: var(--dashboard-note-vivid_blue);
-    --note-textColor: var(--ui-text-knockout);
-    --note-borderColor: var(--dashboard-note-vivid_blue);
-}
-.druids_layout_flex--justify-flex-start {
-    justify-content: flex-start;
-}
-.druids_layout_flex--direction-column {
-    flex-direction: column;
-}
-.druids_layout_flex--align-items-center {
-    align-items: center;
-}
-.druids_layout_flex {
-    display: flex;
-    --flex-gap-x: 0;
-    --flex-gap-y: 0;
-}
-.druids_margin--right-md {
-    margin-right: 16px!important;
-}
-.druids_margin--left-md {
-    margin-left: 16px!important;
-}
-.druids_typography_text--bold[class] {
-    font-weight: 700;
-}
-.druids_typography_title {
-    margin: 0;
-    scroll-margin: var(--ui-scroll-margin);
-}
-.druids_typography_text--left {
-    text-align: left;
-}
-.druids_typography_text--xl {
-    font-size: 18px;
-    font-size: var(--ui-header-font-size,18px);
-}
-.druids_typography_text--default {
-    color: var(--ui-text);
-}
-.druids_layout_flex--wrap-nowrap {
-    flex-wrap: nowrap;
-}
-.druids_typography_text {
-    font-family: NotoSans,Lucida Grande,Lucida Sans Unicode,sans-serif;
-    line-height: var(--ui-header-line-height,var(--ui-base-line-height,inherit));
-    font-weight: var(--ui-header-font-weight,inherit);
-}
-.druids_layout_flex {
-    display: flex;
-    --flex-gap-x: 0;
-    --flex-gap-y: 0;
-}
-.bg-vivid_blue, .bg-vivid_purple, .group-header__banner {
-    --button-shade-text: hsla(0,0%,100%,0.6);
-}
-
-.group-header__handle {
-    --dashboard-note-yellow: #fffbbf;
-    --dashboard-note-gray: #e5e5e5;
-    --dashboard-note-blue: #c9e5ff;
-    --dashboard-note-purple: #e7dbff;
-    --dashboard-note-orange: #ffe4c2;
-    --dashboard-note-green: #c4f5e1;
-    --dashboard-note-pink: #ffd9e2;
-    --dashboard-note-vivid_yellow: #fff024;
-    --dashboard-note-vivid_pink: #eb75a0;
-    --dashboard-note-vivid_blue: #1964d4;
-    --dashboard-note-vivid_purple: #734ddb;
-    --dashboard-note-vivid_orange: #ffa126;
-    --dashboard-note-vivid_green: #4bd69f;
-    --dashboard-note-mask-color: hsla(0,0%,100%,0.75);
-    --dashboard-vivid-text-contrast: var(--ui-text);
-    background-color: var(--note-backgroundColor);
-    cursor: move;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    height: 100%;
-    overflow: hidden;
-}
-
-.group-header__handle--view-only {
-    cursor: default;
-}
-.bg-vivid_blue, .bg-vivid_purple, .group-header__banner {
-    --button-shade-text: rgba(7, 6, 6, 0.6);
-}
-body, body.dark-mode, body .dark-mode {
-    --ui-text-knockout: #fff;
-}
-
-
-
-.druids_misc_integration-logo {
-    flex-shrink: 0;
-}
-.druids_misc_image {
-    max-width: 100%;
-}
-.druids_icons_icon--xxl {
-    height: 28px;
-    width: 28px;
-}
-.druids_misc_integration-logo {
-    flex-shrink: 0;
-}
-.druids_misc_image {
-    max-width: 100%;
-}
-.druids_icons_icon--xxl {
-    height: 28px;
-    width: 28px;
-}
-.druids_icons_icon {
-    fill: currentColor;
-    flex-shrink: 0;
-    flex-grow: 0;
-    height: 1em;
-    width: 1em;
-}
-.druids_margin--bottom-xs {
-    margin-bottom: 4px!important;
-}
-.druids_margin--top-xs {
-    margin-top: 4px!important;
-}
-.druids_misc_integration-logo {
-    flex-shrink: 0;
-}
-.druids_misc_image {
-    max-width: 100%;
-}
-.druids_icons_icon--xxl {
-    height: 28px;
-    width: 28px;
-}
-.druids_icons_icon {
-    fill: currentColor;
-    flex-shrink: 0;
-    flex-grow: 0;
-    height: 1em;
-    width: 1em;
-}
-.druids_margin--bottom-xs {
-    margin-bottom: 4px!important;
-}
-.druids_margin--top-xs {
-    margin-top: 4px!important;
-}
-.druids_margin--right-sm {
-    margin-right: 8px!important;
-}
-.druids_form_action {
-    border: none;
-    font-family: NotoSans,Lucida Grande,Lucida Sans Unicode,sans-serif!important;
-    font-size: 13px;
-    padding: 0;
-    background: transparent;
-    color: inherit;
-    margin: 0;
-    -webkit-appearance: none;
-    max-width: 100%;
-    box-sizing: border-box;
-    cursor: pointer;
-    text-decoration: none;
-    user-select: none;
-    --action-hover: initial;
-    --action-hover-text-color: initial;
-    --action-active: initial;
-}
-.druids_layout_flex {
-    display: flex;
-    --flex-gap-x: 0;
-    --flex-gap-y: 0;
-}
-.druids_layout_header {
-    --stuck-header-bottom-border: transparent;
-    font-family: NotoSans,Lucida Grande,Lucida Sans Unicode,sans-serif;
-    background: var(--ui-background);
-    position: relative;
-}
-
-.dashboard-header__integration_logo {
-    align-self: flex-start;
 }

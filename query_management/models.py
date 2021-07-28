@@ -179,7 +179,7 @@ def updated_total_rows() :
 
 #PG_STAT_ALL_INDEXES
 def stat_all_indexes() :
-    response = psql_connect('SELECT * FROM pg_stat_all_indexes')
+    response = psql_connect('SELECT * FROM pg_stat_all_indexes LIMIT 5')
     print("%s", str(response))
     return response
 
@@ -270,6 +270,7 @@ def self_time_statUser() :
 def stat_replication() :
     response = psql_connect('SELECT EXTRACT(EPOCH FROM (now() - pg_last_xact_replay_timestamp()))::INT')
     #response = psql_connect('SELECT * FROM pg_stat_replication')
+    #select now() - pg_last_xact_replay_timestamp() AS replication_delay;
     print("%s", str(response))
     result = []
     for r in response:

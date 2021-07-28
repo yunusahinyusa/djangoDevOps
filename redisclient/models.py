@@ -13,14 +13,22 @@ def redis_connect(result) :
         redis_pool = config.config(section="redis")
         # connect to the redis server
         print('Connecting to the redis server...')
+        
         #ADD THE CONFIG FILE PARAMETER
         r = redis.StrictRedis(**redis_pool)
         data = r.execute_command(result)
         result = []
         if type(data) == bytes :
             m = data.decode('UTF-8')
+            #m = [i.split() for i in m]
             for line in m.split('b\n'):
                 return line
+            """"
+            m = data.decode('UTF-8')
+            m = data.splitlines()
+            print(type(m))
+            return m
+            """
         elif type(data) == List :
             print("Query Answer:") 
             pprint.pprint(data)
@@ -123,4 +131,5 @@ def get_client_output():
     result = redis_connect('CLIENT LIST')
     print('%s' , str(result))
     return result
+
 

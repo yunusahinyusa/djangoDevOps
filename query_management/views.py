@@ -1,7 +1,7 @@
 from django.db import connection
 from django.http import Http404
 from django.shortcuts import render
-from  .models import active_user, calls_pgStatUser, connection_number, database_conflicts, database_logs, dead_tuples, disk_usage, seq_tup_read, ssl_data, stat_replication, sum_deadlocks, tables_disk_usage, tables_rows, temp_bytes
+from  .models import active_user, calls_pgStatUser, connection_number, database_conflicts, database_logs, dead_tuples, disk_usage, seq_tup_read, ssl_data, stat_replication, sum_deadlocks, tables_disk_usage, tables_rows, temp_bytes, toast_bloks_hit, toast_read_blocks
 
 
 def index (request):
@@ -18,6 +18,8 @@ def index (request):
     tablesrows = tables_rows()
     deadtuples = dead_tuples()
     callsfunction = calls_pgStatUser()
+    toast_reader = toast_read_blocks()
+    toast_hits  =  toast_bloks_hit() 
 
     context = {
 
@@ -33,8 +35,9 @@ def index (request):
     "usagelogs" : usagelogs,
     "tablesrows" : tablesrows,
     "deadtuples" : deadtuples,
-    "callsfunction" : callsfunction
-
+    "callsfunction" : callsfunction,
+    "toast_reader" : toast_reader,
+    "toast_hits " : toast_hits 
 
     }
 

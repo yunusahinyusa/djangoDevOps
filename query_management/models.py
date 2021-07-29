@@ -230,13 +230,20 @@ def toast_read() :
 def toast_bloks_hit() :
     response = psql_connect('SELECT sum(toast_blks_hit) FROM pg_statio_all_tables')
     print("%s", str(response))
-    return response
+    result = []
+    for r in response:
+        result.append({"count": r[0]})
+    return result
 
 #Number of disk blocks read from this table's TOAST table indexes (if any)
 def toast_read_blocks () :
     response = psql_connect('SELECT sum(tidx_blks_read) FROM pg_statio_all_tables')
     print("%s", str(response))
-    return response 
+    result = []
+    for r in response:
+        result.append({"toastnumber": r[0],})
+    return result
+
 
 #Total number of buffer hits in TOAST table indexes
 def toast_tids_blocks() :
@@ -292,7 +299,7 @@ def temp_bytes() :
     print("%s", str(response))
     return response
 
-#deadlocks
+#deadlocks  
 def sum_deadlocks() :
 
     response = psql_connect('SELECT sum(deadlocks) FROM pg_stat_database')

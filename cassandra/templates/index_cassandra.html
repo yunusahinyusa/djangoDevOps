@@ -18,8 +18,8 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <img src="https://static.datadoghq.com/static/images/logos/postgres_avatar.svg" width="40" height="40">
-            <a class="navbar-brand ps-3" href="index.html">Postgres Overview</a>
+            <img src="https://www.openrefactory.com/wp-content/uploads/2020/01/Apache-Cassandra-logo.png" width="40" height="40">
+            <a class="navbar-brand ps-3" href="index.html">Cassandra Overview</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -48,7 +48,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Services</div>
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="../query">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 PostgresSQL
                             </a>
@@ -110,12 +110,12 @@
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Disk Usage</div>
+                                    <div class="card-body">Node Status</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <table>
-                                            {% for i in diskusage %}
+                                            {% for v in client_cassandra %}
                                             <tr>
-                                                    <td class="colorset">{{ i.usage_disk }} </td>
+                                                    <td class="colorset">{{ v.ip }} </td>
                                             </tr>
                                             {% endfor %}
                                             </table>
@@ -138,43 +138,24 @@
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Number of disk blocks</div>
+                                    <div class="card-body">Success Card</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        {% for s in toast_reader %}
-                                        <table>
-                                        <tr>
-                                                <td class="colorget">Count: {{ s.toastnumber }}</td>
-                                        </tr>
-                                        </table>
-                                        {% endfor %}
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Number of total buffer hits</div>
+                                    <div class="card-body">Danger Card</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        {% for k in toast_hits %}
-                                        <table>
-                                        <tr>
-                                                <td class="colorget">Count: {{ k.count }}</td>
-                                        </tr>
-                                        </table>
-                                        {% endfor %}
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
                             </div>
-
-
-
                         </div>
                         <div class="row">
                             <div class="col-xl-6">
@@ -204,28 +185,30 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                        Locks
+                        Usage Table
                         </div>
                         <div class="card-body">
                     <table class="table table-striped table-dark">
                         <thead>
                             <tr>
-                                <th>Lock Type</th>
-                                <th>Database</th>
-                                <th>Relation</th>
-                                <th>Mode</th>
-                                <th>Process ID</th>
-                        </tr>
+                                <th>Pool Name</th>
+                                <th>Active</th>
+                                <th>Pending</th>
+                                <th>Completed</th>
+                                <th>Blocked</th>
+                                <th>All time blocked</th>
+                                </tr>
                         </thead>
                         <tbody>
-                            {% for n in usagelogs %}
-                            <tr>
-                                    <td> {{ n.lock_type}} </td>
-                                    <td> {{ n.database_result }} </td>
-                                    <td> {{ n.relation_name }} </td>
-                                    <td> {{n.mode_name}} </td>
-                                    <td> {{n.pid}} </td>
-                            </tr>
+                            {% for rise in client_tpstat %}
+                            <tr> 
+                            <td>  {{ rise.pool }} </td>
+                            <td>  {{ rise.active }} </td>
+                            <td>  {{ rise.pending }} </td>
+                            <td>  {{ rise.completed }} </td>
+                            <td>  {{ rise.blocked }} </td>
+                            <td>  {{ rise.all_blocked }} </td>
+                            </tr> 
                             {% endfor %}
                         </tbody>
                       </table>
@@ -233,33 +216,57 @@
                       </div>
 
 
+                      <ul class="list-group">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                        Nodetool Infos
+                        </div>
+                      
+                        {% for result in client_info %}
+                        <li class="list-group-item list-group-item-success">{{ result }} </li>
+                        {% endfor %}
+                      </ul>
+
+
 
 
                     <div class="card-body">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            Tables with most disk usage (top 5)
+                            Snapshots
                         </div>
+
+
+
+
                         <div class="card-body">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Database</th>
-                                    <th>Usage</th>
-                                </tr>
+                                    <th>Snapshot Name</th>
+                                    <th>Keyspace Name</th>
+                                    <th>Column Family Name</th>
+                                    <th>True Size</th>
+                                    <th>Size on Disk</th>
+                                    </tr>
                             </thead>
                             <tbody>
-                                {% for s in tablesusage %}
-                                <tr>
-                                        <td> {{ s.table_name }} </td>
-                                        <td> {{ s.disk_usage }} </td>
-                                </tr>
+                                {% for x in client_listsnapshot %}
+                                <tr> 
+                                <td>  {{ x.snapshot_name }} </td>  
+                                <td>  {{ x.keyspace_name }} </td>  
+                                <td>  {{ x.column_name }} </td>  
+                                <td>  {{ x.true_size }} </td>  
+                                <td>  {{ x.size_disk}} </td>  
+                                </tr> 
                                 {% endfor %}
                             </tbody>
                           </table>
                     </div>
 
 
+
+                   
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>

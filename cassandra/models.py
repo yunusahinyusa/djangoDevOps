@@ -16,11 +16,12 @@ def connect_status():
     cmd = cassandra_connect("nodetool status")
     print("%s", str(cmd))
     cmd = [i.split() for i in cmd]
-    cmd = cmd[5]
+    cmd= cmd[5]
+    cmd = [i.split() for i in cmd]
     result = []
     for r in cmd:
-        result.append({"address": r[0]})
-    return cmd
+        result.append({"ip": r[0]})
+    return result
     
 
 #This command retrieves a list of active and pending tasks

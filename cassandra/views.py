@@ -18,7 +18,7 @@ def cassandra_index (request):
     }
 
     #import pdb; pdb.set_trace()
-    return  render(request,"cassandra_index.html",context)
+    return  render(request,"index_cassandra.html",context)
     #return  render(request,'index.html',{ 'result' :result})
 
 

@@ -40,5 +40,6 @@ def index (request):
 
 
     #import pdb; pdb.set_trace()
-    return  render(request,"index.html",context)
+    return  render(request,"postgres_index.html",context)
+    #return  render(request,"index.html",context)
     #return  render(request,'index.html',{ 'result' :result})

@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'query_management',
     'redisclient',
-    'cassandra'
+    'cassandra',
+    'bootstrap'
 ]
 
 MIDDLEWARE = [

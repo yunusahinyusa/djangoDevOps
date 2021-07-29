@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("query/", include("query_management.urls")),
     path("redis/", include("redisclient.urls")),
-    path("cassandra/" , include("cassandra.urls"))
+    path("cassandra/" , include("cassandra.urls")),
+    path('bootstrap/',include("bootstrap.urls"))
 
 ]

@@ -206,7 +206,10 @@ def buffer_hits() :
 def buffer_total_hits() :
     response = psql_connect('SELECT sum(heap_blks_hit) FROM pg_statio_all_tables')
     print("%s", str(response))
-    return response 
+    result = []
+    for r in response:
+        result.append({"buffer_hits": r[0]})
+    return result 
 
 #Number of disk blocks read from all indexes in the table
 def table_read_disk_total() :
@@ -224,7 +227,10 @@ def buffer_total_indexes() :
 def toast_read() :
     response = psql_connect('SELECT sum(toast_blks_read) FROM pg_statio_all_tables')
     print("%s", str(response))
-    return response
+    result = []
+    for r in response:
+        result.append({"count": r[0]})
+    return result
 
 #Number of total buffer hits in this table's TOAST table (if any)
 def toast_bloks_hit() :

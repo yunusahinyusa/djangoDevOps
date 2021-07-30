@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
+        <title>DevOps Monitoring Project</title>
         <link href="{% static 'https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css' %}" rel="stylesheet" />
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
         <script src="{% static 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js' %}" crossorigin="anonymous"></script>
@@ -159,12 +159,12 @@
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Number of total buffer hits</div>
+                                    <div class="card-body">Disk Blocks read from Table</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        {% for k in toast_hits %}
+                                        {% for x in toast_head %}
                                         <table>
                                         <tr>
-                                                <td class="colorget">Count: {{ k.count }}</td>
+                                                <td class="colorget">Count: {{ x.count }}</td>
                                         </tr>
                                         </table>
                                         {% endfor %}

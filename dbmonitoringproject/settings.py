@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     'query_management',
     'redisclient',
     'cassandra',
-    'bootstrap',
-    'django_plotly_dash.apps.DjangoPlotlyDashConfig'
+    'bootstrap'
 ]
 
 MIDDLEWARE = [

@@ -13,7 +13,6 @@ def redis_connect(result) :
         redis_pool = config.config(section="redis")
         # connect to the redis server
         print('Connecting to the redis server...')
-        
         #ADD THE CONFIG FILE PARAMETER
         r = redis.StrictRedis(**redis_pool)
         data = r.execute_command(result)

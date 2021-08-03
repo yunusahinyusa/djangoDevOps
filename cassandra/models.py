@@ -83,6 +83,15 @@ def  connect_info():
     print("%s", str(cmd))
     return cmd
 
+def  connect_infos():
+    cmd = cassandra_connect("nodetool getmaxhintwindow")
+    print("%s", str(cmd))
+    cmd = [i.split() for i in cmd]
+    result = []
+    for r in cmd:
+        result.append({"max_hint": r[4]})
+    return result 
+
 def connect_snapshots():
     cmd = cassandra_connect("nodetool listsnapshots")
     print("%s", str(cmd))

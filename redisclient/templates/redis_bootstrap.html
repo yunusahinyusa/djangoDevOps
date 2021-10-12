@@ -21,8 +21,8 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <img src="https://static.datadoghq.com/static/images/logos/postgres_avatar.svg" width="40" height="40">
-        <a class="navbar-brand ps-3" href="index.html">Postgres Overview</a>
+        <img src="https://mehmetbutun.com/wp-content/uploads/2020/05/redis.png" width="100" height="100">
+        <a class="navbar-brand ps-3" href="index.html">Redis Overview</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                 class="fas fa-bars"></i></button>
@@ -57,7 +57,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Services</div>
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="../query">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             PostgresSQL
                         </a>
@@ -130,11 +130,13 @@
                                 <div class="card-body">Disk Usage</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <table>
-                                        {% for i in diskusage %}
+                                 
                                         <tr>
-                                            <td class="colorset">{{ i.usage_disk }} </td>
+                                            <td class="colorset"> 
+                                                6953 kB
+                                                 </td>
                                         </tr>
-                                        {% endfor %}
+                                        
                                     </table>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
@@ -142,15 +144,15 @@
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-warning text-white mb-4">
-                                <div class="card-body">Connection Number</div>
+                                <div class="card-body">Used CPU </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    {% for s in connectionnum %}
+                                
                                     <table>
                                         <tr>
-                                            <td class="colorget"> Count: {{ s.connumber }}</td>
+                                            <td class="colorget">User CPU User :7.573852 </td>
                                         </tr>
                                     </table>
-                                    {% endfor %}
+                                  
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
@@ -159,15 +161,17 @@
 
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-success text-white mb-4">
-                                <div class="card-body">Number of disk blocks</div>
+                                <div class="card-body">Client Info</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    {% for s in toast_reader %}
+                                  
                                     <table>
-                                        <tr>
-                                            <td class="colorget">Count: {{ s.toastnumber }}</td>
-                                        </tr>
+                                        <tr>Address: 127.0.0.1:47028</tr>
+                                        <br>
+                                        <tr >ID: 141</tr>
+                                            
+                                        
                                     </table>
-                                    {% endfor %}
+                                  
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
@@ -176,15 +180,15 @@
 
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-danger text-white mb-4">
-                                <div class="card-body">Disk Blocks read from Table</div>
+                                <div class="card-body">Redis Version</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    {% for x in toast_head %}
+                                  
                                     <table>
                                         <tr>
-                                            <td class="colorget">Count: {{ x.count }}</td>
+                                            <td class="colorget">Version: 5.0.7</td>
                                         </tr>
                                     </table>
-                                    {% endfor %}
+                                 
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
@@ -196,110 +200,24 @@
 
 
                     
-<div class="row">
-<div class="col-xl-6">
-    <div class="card mb-4">
-        <canvas id="pie-chart" width="800" height="450"></canvas>
-        <script>
-           new Chart(document.getElementById("pie-chart"), {
-type: 'pie',
-data: {
-labels: ["public.auth_user", "public.django_admin_log", "public.django_session", "public.auth_permission	", "public.cars_car	"],
-datasets: [{
-label: "Population (millions)",
-backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-data: [64,64,64,56,48]
-}]
-},
-options: {
-title: {
-display: true,
-text: 'Predicted world population (millions) in 2050'
-}
-}
-});
-        </script>
-
-    </div>
-</div>
-<div class="col-xl-6">
-<div class="card mb-4">
-<canvas id="line-chart" width="800" height="450"></canvas>
-<script>
-new Chart(document.getElementById("line-chart"), {
-  type: 'line',
-  data: {
-    labels: [50,75,1700,1750,1800,1850,1900,1950,1999,2050],
-    datasets: [{ 
-        data: [50,75,106,106,107,111,133,221,783,2478],
-        label: "ReplicationTables",
-        borderColor: "#3e95cd",
-        fill: false
-      }, { 
-        data: [282,350,411,502,635,809,947,1402,3700,5267],
-        label: "SSTables",
-        borderColor: "#8e5ea2",
-        fill: false
-      }, { 
-        data: [168,170,178,190,203,276,408,547,675,734],
-        label: "IntervalTables",
-        borderColor: "#3cba9f",
-        fill: false
-      }, { 
-        data: [40,20,10,16,24,38,74,167,508,784],
-        label: "PublicTables",
-        borderColor: "#e8c3b9",
-        fill: false
-      }, { 
-        data: [6,3,2,2,7,26,82,172,312,433],
-        label: "PrivateTables",
-        borderColor: "#c45850",
-        fill: false
-      }
-    ]
-  },
-  options: {
-    title: {
-      display: true,
-      text: 'World population per region (in millions)'
-    }
-  }
-});
-</script>
-</div>
-</div>
 
 
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        Locks
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped table-dark">
-                            <thead>
-                                <tr>
-                                    <th>Lock Type</th>
-                                    <th>Database</th>
-                                    <th>Relation</th>
-                                    <th>Mode</th>
-                                    <th>Process ID</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for n in usagelogs %}
-                                <tr>
-                                    <td> {{ n.lock_type}} </td>
-                                    <td> {{ n.database_result }} </td>
-                                    <td> {{ n.relation_name }} </td>
-                                    <td> {{n.mode_name}} </td>
-                                    <td> {{n.pid}} </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+<ul class="list-group">
+    <li class="list-group-item">Persistence</li>
+    <li class="list-group-item list-group-item-primary">loading:0</li>
+    <li class="list-group-item list-group-item-secondary">rdb_changes_since_last_save:0</li>
+    <li class="list-group-item list-group-item-success">rdb_bgsave_in_progress:0
+    </li>
+    <li class="list-group-item list-group-item-danger">rdb_last_bgsave_status:ok
+    </li>
+    <li class="list-group-item list-group-item-warning">rdb_last_bgsave_time_sec:-1
+    </li>
+    <li class="list-group-item list-group-item-info">rdb_last_cow_size:0
+    </li>
+    <li class="list-group-item list-group-item-light">aof_rewrite_in_progress:0</li>
+    <li class="list-group-item list-group-item-dark">aof_current_rewrite_time_sec:-1
+    </li>
+  </ul>
 
 
 

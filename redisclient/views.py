@@ -26,5 +26,5 @@ def redis_index (request):
 
 
     #import pdb; pdb.set_trace()
-    return  render(request,"redis_index.html",context)
+    return  render(request,"redis_bootstrap.html",context)
     #return  render(request,'index.html',{ 'result' :result})
